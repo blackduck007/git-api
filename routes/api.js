@@ -1,7 +1,12 @@
+require('dotenv').config()
+
 const express = require('express');
 const router = express.Router();
 const https = require('https');
 
+router.get('/', function (req, res) {
+    res.send("API endpoint here!")
+})
 
 router.get('/github/userinfo/:user', async function (req, res) {
     const user = req.params.user;
@@ -11,13 +16,13 @@ router.get('/github/userinfo/:user', async function (req, res) {
         headers: {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36'
         },
-        OAUth: "<paste your token here>"
+        OAUth: process.env.GHTOKEN
     }
     https.get(options, function (apiResponse) {
         apiResponse.pipe(res);
     }).on('error', (e) => {
         console.log(e);
-        res.status(500).send('Something wnent wrong!');
+        res.status(500).send('Something went wrong!');
     })
 })
 
@@ -31,13 +36,13 @@ router.get('/github/repoinfo/:user/:reponame', async function (req, res) {
         headers: {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36'
         },
-        OAUth: "<paste your token here>"
+        OAUth: process.env.GHTOKEN
     }
     https.get(options, function (apiResponse) {
         apiResponse.pipe(res);
     }).on('error', (e) => {
         console.log(e);
-        res.status(500).send('Something wnent wrong!');
+        res.status(500).send('Something went wrong!');
     })
 })
 
@@ -50,13 +55,13 @@ router.get('/github/commitinfo/:user/:reponame', async function (req, res) {
         headers: {
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1521.3 Safari/537.36'
         },
-        OAUth: "<paste your token here>"
+        OAUth: process.env.GHTOKEN
     }
     https.get(options, function (apiResponse) {
         apiResponse.pipe(res);
     }).on('error', (e) => {
         console.log(e);
-        res.status(500).send('Something wnent wrong!');
+        res.status(500).send('Something went wrong!');
     })
 })
 
